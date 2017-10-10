@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {mapStateToProps} from 'redux';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import * as actions from '../../actions';
-
 
 class Signin extends Component{
   handleFormSubmit({email, password}){
     // Need to do something to log user
     this.props.signinUser({email, password});
-  }
-  
-  
+  }  
   render(){
     const { handleSubmit, pristine, reset, submitting } = this.props
     
@@ -32,10 +29,9 @@ class Signin extends Component{
   }
 }
 
-const SigninForm = reduxForm({
+const SigninContainer = connect(mapStateToProps, actions)(Signin);
+
+export default reduxForm({
   form: "signin", // name of the form
   fields: ['email', 'password']
-})(Signin);
-
-export default Signin = connect(mapStateToProps, actions)(SigninForm);
-
+})(SigninContainer);
